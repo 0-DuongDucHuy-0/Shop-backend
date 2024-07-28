@@ -1,4 +1,5 @@
 const User = require('../models/UserModel')
+const bcrypt = require("bcrypt")
 
 const createUser = (newUser) => {
     const { name, email, password, confirmPassword, phone } = newUser
@@ -13,11 +14,11 @@ const createUser = (newUser) => {
                     message: 'Email đã tồn tại'
                 })
             }
+            const hash = bcrypt.hashSync(password, 10)
             const createUser = await User.create({
                 name, 
                 email, 
-                password, 
-                confirmPassword, 
+                password: hash, 
                 phone
             })
             if(createUser) {
