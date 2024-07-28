@@ -34,6 +34,38 @@ const createUser = (newUser) => {
     })
 }
 
+const loginUser = (userLogin) => {
+    const { name, email, password, confirmPassword, phone } = userLogin
+    return new Promise( async (resolve, reject) => {
+        try{
+            const checkUser = await User.findOne({
+                email: email
+            })
+            if(checkUser === null ){
+                resolve({
+                    status: 'OK',
+                    message: 'Người dùng không tồn tại'
+                })
+            }
+            const comparePassword = bcrypt.compareSync(password, checkUser.password)
+            if(!comparePassword) {
+                resolve({
+                    status: 'OK',
+                    message: 'Sai mật khẩu'
+                })
+            }
+            resolve({
+                status:'OK',
+                message: 'SUCCESS',
+                data: checkUser
+            })
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
+
 module.exports = {
-    createUser
+    createUser,
+    loginUser
 }
