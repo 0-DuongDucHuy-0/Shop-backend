@@ -1,5 +1,6 @@
 const User = require('../models/UserModel')
 const bcrypt = require("bcrypt")
+const { genneralAccessToken, genneralRefreshToken } = require('./JwtServices')
 
 const createUser = (newUser) => {
     const { name, email, password, confirmPassword, phone } = newUser
@@ -54,10 +55,19 @@ const loginUser = (userLogin) => {
                     message: 'Sai mật khẩu'
                 })
             }
+            const access_token = await genneralAccessToken({
+                id: checkUser.id,
+                isAdmin: checkUser.isAdmin
+            })
+            const refresh_token = await genneralRefreshToken({
+                id: checkUser.id,
+                isAdmin: checkUser.isAdmin
+            })
             resolve({
                 status:'OK',
                 message: 'SUCCESS',
-                data: checkUser
+                access_token,
+                refresh_token
             })
         } catch (e) {
             reject(e)
