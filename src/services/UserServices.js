@@ -111,7 +111,7 @@ const deleteUser = (id) => {
                     message: 'Người dùng không tồn tại'
                 })
             }
-            const deletedUser = await User.findByIdAndDelete(id)
+            // const deletedUser = await User.findByIdAndDelete(id)
             resolve({
                 status:'OK',
                 message: 'DELETE USER SUCCESS',
