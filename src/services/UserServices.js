@@ -111,10 +111,25 @@ const deleteUser = (id) => {
                     message: 'Người dùng không tồn tại'
                 })
             }
-            // const deletedUser = await User.findByIdAndDelete(id)
+            const deletedUser = await User.findByIdAndDelete(id)
             resolve({
                 status:'OK',
                 message: 'DELETE USER SUCCESS',
+            })
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
+
+const getAllUser = () => {
+    return new Promise( async (resolve, reject) => {
+        try{
+            const allUser = await User.find()
+            resolve({
+                status:'OK',
+                message: 'SUCCESS',
+                data: allUser
             })
         } catch (e) {
             reject(e)
@@ -126,5 +141,6 @@ module.exports = {
     createUser,
     loginUser,
     uplateUser,
-    deleteUser
+    deleteUser,
+    getAllUser
 }
