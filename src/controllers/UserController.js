@@ -110,10 +110,29 @@ const getAllUser = async (req, res) => {
     }
 }
 
+const getDetailsUser = async (req, res) => {
+    try{
+        const userId = req.params.id
+        if(!userId) {
+            return res.status(200).json({
+                status: 'ERR',
+                meassage: 'Không tồn tại tài khoản'
+            })
+        }
+        const response = await UserService.getDetailsUser(userId)
+        return res.status(200).json(response)
+    } catch (e) {
+        return res.status(404).json({
+            message: e
+        })
+    }
+}
+
 module.exports = {
     createUser,
     loginUser,
     uplateUser,
     deleteUser,
-    getAllUser
+    getAllUser,
+    getDetailsUser
 }
