@@ -90,11 +90,11 @@ const uplateUser = (id, data) => {
                     message: 'Người dùng không tồn tại'
                 })
             }
-            const uplateUser = await User.findByIdAndUpdate(id, data)
-            console.log('uplateUser', uplateUser)
+            const uplateUser = await User.findByIdAndUpdate(id, data, {new: true})
             resolve({
                 status:'OK',
                 message: 'SUCCESS',
+                data: uplateUser
             })
         } catch (e) {
             reject(e)
