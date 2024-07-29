@@ -75,7 +75,35 @@ const loginUser = (userLogin) => {
     })
 }
 
+const uplateUser = (id, data) => {
+    return new Promise( async (resolve, reject) => {
+        try{
+            console.log('id', id)
+            console.log('data', data)
+            const checkUser = await User.findOne({
+                _id: id
+            })
+            console.log('checkUser', checkUser)
+            if(checkUser === null ){
+                resolve({
+                    status: 'OK',
+                    message: 'Người dùng không tồn tại'
+                })
+            }
+            const uplateUser = await User.findByIdAndUpdate(id, data)
+            console.log('uplateUser', uplateUser)
+            resolve({
+                status:'OK',
+                message: 'SUCCESS',
+            })
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
+
 module.exports = {
     createUser,
-    loginUser
+    loginUser,
+    uplateUser
 }
