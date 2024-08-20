@@ -4,7 +4,6 @@ dotenv.config()
 
 const authMiddleWare = (req, res, next) => {
     const token = req.headers.token.split(' ')[1]
-    const userId = req.params.id
     jwt.verify(token, process.env.ACCESS_TOKEN, function(err, user) {
         if(err) {
             return res.status(404).json({
@@ -13,7 +12,7 @@ const authMiddleWare = (req, res, next) => {
             })
         }
         const { payload } = user
-        if(payload?.isAdmin || payload?.id === userId){
+        if(payload?.isAdmin){
             next()
         } else {
             return res.status(404).json({
@@ -26,6 +25,7 @@ const authMiddleWare = (req, res, next) => {
 
 const authUserMiddleWare = (req, res, next) => {
     const token = req.headers.token.split(' ')[1]
+    const userId = req.params.id
     jwt.verify(token, process.env.ACCESS_TOKEN, function(err, user) {
         if(err) {
             return res.status(404).json({
@@ -34,7 +34,7 @@ const authUserMiddleWare = (req, res, next) => {
             })
         }
         const { payload } = user
-        if(payload?.isAdmin){
+        if(payload?.isAdmin || payload?.id === userId){
             next()
         } else {
             return res.status(404).json({
