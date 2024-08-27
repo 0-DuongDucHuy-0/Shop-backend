@@ -82,7 +82,7 @@ const deleteProduct = (id) => {
     })
 }
 
-const getAllProduct = (limit = 2, page = 0) => {
+const getAllProduct = (limit , page ) => {
     return new Promise( async (resolve, reject) => {
         try{
             const totalProduct = await Product.countDocuments()
