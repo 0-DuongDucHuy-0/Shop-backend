@@ -36,7 +36,7 @@ const createUser = (newUser) => {
 }
 
 const loginUser = (userLogin) => {
-    const { name, email, password, confirmPassword, phone } = userLogin
+    const { email, password } = userLogin
     return new Promise( async (resolve, reject) => {
         try{
             const checkUser = await User.findOne({
@@ -44,14 +44,14 @@ const loginUser = (userLogin) => {
             })
             if(checkUser === null ){
                 resolve({
-                    status: 'OK',
+                    status: 'ERR',
                     message: 'Người dùng không tồn tại'
                 })
             }
             const comparePassword = bcrypt.compareSync(password, checkUser.password)
             if(!comparePassword) {
                 resolve({
-                    status: 'OK',
+                    status: 'ERR',
                     message: 'Sai mật khẩu'
                 })
             }
