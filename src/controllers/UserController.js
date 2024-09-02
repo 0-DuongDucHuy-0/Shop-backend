@@ -3,11 +3,11 @@ const JwtServices = require('../services/JwtServices')
 
 const createUser = async (req, res) => {
     try{
-        const { name, email, password, confirmPassword, phone } = req.body
+        const { email, password, confirmPassword } = req.body
         const reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
         const isCheckEmail = reg.test(email)
 
-        if(!name || !email || !password || !confirmPassword || !phone){
+        if(!email || !password || !confirmPassword){
             return res.status(200).json({
                 status: 'ERR',
                 meassage: 'Thiếu thông tin đăng ký'
@@ -15,7 +15,7 @@ const createUser = async (req, res) => {
         } else if(!isCheckEmail){
             return res.status(200).json({
                 status: 'ERR',
-                meassage: 'Email khônh hợp lệ'
+                meassage: 'Email không hợp lệ'
             })
         } else if(password != confirmPassword){
             return res.status(200).json({
