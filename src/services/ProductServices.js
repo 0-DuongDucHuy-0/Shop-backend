@@ -45,9 +45,10 @@ const uplateProduct = (id, data) => {
       if (checkProduct === null) {
         resolve({
           status: "OK",
-          message: "Sản phẩm  không tồn tại",
+          message: "Sản phẩm không tồn tại",
         });
       }
+      console.log("chack", data);
       const uplatedProduct = await Product.findByIdAndUpdate(id, data, {
         new: true,
       });
