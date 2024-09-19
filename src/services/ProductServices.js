@@ -144,6 +144,21 @@ const getAllProduct = (limit, page, sort, filter) => {
   });
 };
 
+const getAllType = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const totalType = await Product.distinct("type");
+      resolve({
+        status: "OK",
+        message: "SUCCESS",
+        data: totalType,
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 const getDetailsProduct = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -173,4 +188,5 @@ module.exports = {
   getDetailsProduct,
   deleteProduct,
   getAllProduct,
+  getAllType,
 };
