@@ -48,7 +48,6 @@ const uplateProduct = (id, data) => {
           message: "Sản phẩm không tồn tại",
         });
       }
-      console.log("chack", data);
       const uplatedProduct = await Product.findByIdAndUpdate(id, data, {
         new: true,
       });
@@ -94,7 +93,6 @@ const getAllProduct = (limit, page, sort, filter) => {
       if (filter) {
         const tmp = {};
         tmp[filter[0]] = filter[1];
-        console.log(tmp);
         const allProductFilter = await Product.find({
           [filter[0]]: { $regex: filter[1] },
         });
@@ -111,7 +109,6 @@ const getAllProduct = (limit, page, sort, filter) => {
       if (sort) {
         const tmp = {};
         tmp[sort[1]] = sort[0];
-        console.log(tmp);
         const allProductSort = await Product.find()
           .limit(limit)
           .skip(page * limit)
@@ -126,7 +123,6 @@ const getAllProduct = (limit, page, sort, filter) => {
         });
       }
 
-      console.log("sort", sort);
       const allProduct = await Product.find()
         .limit(limit)
         .skip(page * limit);
